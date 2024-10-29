@@ -14,7 +14,7 @@
   - Schema: `tinToNpi`
 
 
-{% swagger src="api-datalake-prod-oas30.json" path="/v1/metadata/tin_to_npi" method="get" %}
+{% swagger src="./api-datalake-prod-oas30.json" path="/v1/metadata/tin_to_npi" method="get" %}
   headers:
     x-api-key: [REQUIRED]
 {% endswagger %}
