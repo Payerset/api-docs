@@ -15,7 +15,7 @@
   - Schema: `billingCode`
 
 
-{% swagger src="./api-datalake-prod-oas30.json" path="/v1/metadata/billing_code" method="get" %}
+{% swagger src="../api-datalake-prod-oas30.json" path="/v1/metadata/billing_code" method="get" %}
   headers:
     x-api-key: [REQUIRED]
 {% endswagger %}

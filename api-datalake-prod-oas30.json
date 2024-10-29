@@ -35,7 +35,6 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
-          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -50,7 +49,8 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"npi_to_parent_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match"
+          "passthroughBehavior" : "when_no_match",
+          "type" : "aws"
         }
       }
     },
@@ -88,7 +88,6 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
-          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -105,7 +104,8 @@
           },
           "passthroughBehavior" : "when_no_templates",
           "cacheNamespace" : "5hqbjo",
-          "cacheKeyParameters" : [ "method.request.querystring.billing_code", "method.request.querystring.code_type" ]
+          "cacheKeyParameters" : [ "method.request.querystring.billing_code", "method.request.querystring.code_type" ],
+          "type" : "aws"
         }
       }
     },
@@ -136,7 +136,6 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
-          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -151,7 +150,8 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"npi_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match"
+          "passthroughBehavior" : "when_no_match",
+          "type" : "aws"
         }
       }
     },
@@ -182,7 +182,6 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
-          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/Query",
@@ -197,7 +196,8 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"tin_to_npis_202411\",\n    \"KeyConditionExpression\": \"tin_value = :tin_value\",\n    \"ExpressionAttributeValues\": {\n        \":tin_value\": { \"S\": \"$input.params('tin_value')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match"
+          "passthroughBehavior" : "when_no_match",
+          "type" : "aws"
         }
       }
     },
@@ -242,7 +242,6 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
-          "type" : "aws_proxy",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:847536253128:function:api-datalake/invocations",
           "responses" : {
@@ -252,7 +251,8 @@
           },
           "passthroughBehavior" : "when_no_match",
           "timeoutInMillis" : 29000,
-          "contentHandling" : "CONVERT_TO_TEXT"
+          "contentHandling" : "CONVERT_TO_TEXT",
+          "type" : "aws_proxy"
         }
       }
     },
@@ -283,7 +283,6 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
-          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -298,7 +297,8 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"tin_map_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match"
+          "passthroughBehavior" : "when_no_match",
+          "type" : "aws"
         }
       }
     },
@@ -328,7 +328,6 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
-          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/Query",
@@ -343,7 +342,8 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"npi_parent_202411\",\n    \"KeyConditionExpression\": \"npi_parent = :npi_parent\",\n    \"ExpressionAttributeValues\": {\n        \":npi_parent\": { \"S\": \"$input.params('npi_parent')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match"
+          "passthroughBehavior" : "when_no_match",
+          "type" : "aws"
         }
       }
     }

@@ -16,7 +16,7 @@
   - Schema: `Empty`
 
 
-{% swagger src="./api-datalake-prod-oas30.json" path="/v1/rates" method="get" %}
+{% swagger src="../api-datalake-prod-oas30.json" path="/v1/rates" method="get" %}
   headers:
     x-api-key: [REQUIRED]
 {% endswagger %}
