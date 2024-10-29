@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "api-datalake",
-    "version" : "2024-10-29T19:57:08Z"
+    "version" : "2024-10-29T20:05:42Z"
   },
   "servers" : [ {
     "url" : "https://api.payerset.com"
@@ -25,7 +25,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/npiToParent"
                 }
               }
             }
@@ -35,6 +35,7 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
+          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -49,8 +50,7 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"npi_to_parent_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "aws"
+          "passthroughBehavior" : "when_no_match"
         }
       }
     },
@@ -78,7 +78,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/billingCode"
                 }
               }
             }
@@ -88,6 +88,7 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
+          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -104,8 +105,7 @@
           },
           "passthroughBehavior" : "when_no_templates",
           "cacheNamespace" : "5hqbjo",
-          "cacheKeyParameters" : [ "method.request.querystring.billing_code", "method.request.querystring.code_type" ],
-          "type" : "aws"
+          "cacheKeyParameters" : [ "method.request.querystring.billing_code", "method.request.querystring.code_type" ]
         }
       }
     },
@@ -126,7 +126,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/NpiDetailResponse"
+                  "$ref" : "#/components/schemas/npiDetail"
                 }
               }
             }
@@ -136,6 +136,7 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
+          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -150,8 +151,7 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"npi_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "aws"
+          "passthroughBehavior" : "when_no_match"
         }
       }
     },
@@ -172,7 +172,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/tinToNpi"
                 }
               }
             }
@@ -182,6 +182,7 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
+          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/Query",
@@ -196,8 +197,7 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"tin_to_npis_202411\",\n    \"KeyConditionExpression\": \"tin_value = :tin_value\",\n    \"ExpressionAttributeValues\": {\n        \":tin_value\": { \"S\": \"$input.params('tin_value')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "aws"
+          "passthroughBehavior" : "when_no_match"
         }
       }
     },
@@ -242,6 +242,7 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
+          "type" : "aws_proxy",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:847536253128:function:api-datalake/invocations",
           "responses" : {
@@ -251,8 +252,7 @@
           },
           "passthroughBehavior" : "when_no_match",
           "timeoutInMillis" : 29000,
-          "contentHandling" : "CONVERT_TO_TEXT",
-          "type" : "aws_proxy"
+          "contentHandling" : "CONVERT_TO_TEXT"
         }
       }
     },
@@ -273,7 +273,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/npiToTin"
                 }
               }
             }
@@ -283,6 +283,7 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
+          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -297,8 +298,7 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"tin_map_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "aws"
+          "passthroughBehavior" : "when_no_match"
         }
       }
     },
@@ -318,7 +318,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/npiParent"
                 }
               }
             }
@@ -328,6 +328,7 @@
           "api_key" : [ ]
         } ],
         "x-amazon-apigateway-integration" : {
+          "type" : "aws",
           "credentials" : "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod" : "POST",
           "uri" : "arn:aws:apigateway:us-east-1:dynamodb:action/Query",
@@ -342,19 +343,42 @@
           "requestTemplates" : {
             "application/json" : "{\n    \"TableName\": \"npi_parent_202411\",\n    \"KeyConditionExpression\": \"npi_parent = :npi_parent\",\n    \"ExpressionAttributeValues\": {\n        \":npi_parent\": { \"S\": \"$input.params('npi_parent')\" }\n    }\n}\n"
           },
-          "passthroughBehavior" : "when_no_match",
-          "type" : "aws"
+          "passthroughBehavior" : "when_no_match"
         }
       }
     }
   },
   "components" : {
     "schemas" : {
-      "Empty" : {
-        "title" : "Empty Schema",
-        "type" : "object"
+      "billingCode" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "billing_code" : {
+                  "type" : "string"
+                },
+                "name" : {
+                  "type" : "string"
+                },
+                "code_type" : {
+                  "type" : "string"
+                },
+                "category" : {
+                  "type" : "string"
+                },
+                "subcategory" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
       },
-      "NpiDetailResponse" : {
+      "npiDetail" : {
         "type" : "object",
         "properties" : {
           "items" : {
@@ -411,6 +435,95 @@
                   "type" : "string"
                 },
                 "medicare_enrollment_specialty" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Empty" : {
+        "title" : "Empty Schema",
+        "type" : "object"
+      },
+      "npiToParent" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "npi" : {
+                  "type" : "string"
+                },
+                "npi_parent" : {
+                  "type" : "string"
+                },
+                "tin_value" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "npiParent" : {
+        "type" : "object",
+        "properties" : {
+          "count" : {
+            "type" : "string"
+          },
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "npi_parent" : {
+                  "type" : "string"
+                },
+                "npi" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "npiToTin" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "npi" : {
+                  "type" : "string"
+                },
+                "tin_value" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "tinToNpi" : {
+        "type" : "object",
+        "properties" : {
+          "count" : {
+            "type" : "string"
+          },
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "npi" : {
+                  "type" : "string"
+                },
+                "tin_value" : {
                   "type" : "string"
                 }
               }
