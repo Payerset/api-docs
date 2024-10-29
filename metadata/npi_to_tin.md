@@ -7,6 +7,7 @@
 ## Parameters
 
 - **npi** (`query`, `string`, required): No description available.
+- **x-api-key** (`header`, `string`, required): API key for authorization
 
 ## Responses
 
@@ -15,7 +16,5 @@
 
 
 {% swagger src="../api-datalake-prod-oas30.json" path="/v1/metadata/npi_to_tin" method="get" %}
-  headers:
-    x-api-key: [REQUIRED]
 {% endswagger %}
 
