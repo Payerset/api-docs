@@ -13,8 +13,6 @@
 ## Responses
 
 - **200**: 200 response
-  - Schema: `billingCode`
-
 
 {% swagger src="../api-datalake-prod-oas30.json" path="/v1/metadata/billing_code" method="get" %}
 {% endswagger %}

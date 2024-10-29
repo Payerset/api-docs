@@ -12,8 +12,6 @@
 ## Responses
 
 - **200**: 200 response
-  - Schema: `npiDetail`
-
 
 {% swagger src="../api-datalake-prod-oas30.json" path="/v1/metadata/npi_detail" method="get" %}
 {% endswagger %}

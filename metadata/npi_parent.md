@@ -12,8 +12,6 @@
 ## Responses
 
 - **200**: 200 response
-  - Schema: `npiParent`
-
 
 {% swagger src="../api-datalake-prod-oas30.json" path="/v1/metadata/npi_parent" method="get" %}
 {% endswagger %}
