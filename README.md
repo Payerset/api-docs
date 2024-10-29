@@ -20,9 +20,7 @@ Copy code
 
 ### Authentication
 This API requires an API key for authentication. Include your API key in the `x-api-key` header with every request:
-```
-x-api-key: YOUR_API_KEY
-```
+`x-api-key: YOUR_API_KEY`
 
 ## Key Endpoints
 
@@ -50,7 +48,7 @@ payer (required): Name of the payer (e.g., “Aetna”).
 billing_code (required): Billing code of the service (e.g., “27447” for Total Knee Arthroplasty).
 
 #### Sample Request
-```
+```javascript
 const response = await fetch('https://api.payerset.com/v1/rates?npi=1003936113&payer=aetna&billing_code=27447', {
     method: 'GET',
     headers: {
