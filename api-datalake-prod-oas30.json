@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "api-datalake",
-    "version" : "2024-10-29T13:41:32Z"
+    "version" : "2024-10-29T19:57:08Z"
   },
   "servers" : [ {
     "url" : "https://api.payerset.com"
@@ -126,7 +126,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/NpiDetailResponse"
                 }
               }
             }
@@ -353,6 +353,70 @@
       "Empty" : {
         "title" : "Empty Schema",
         "type" : "object"
+      },
+      "NpiDetailResponse" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "npi" : {
+                  "type" : "string"
+                },
+                "taxonomygrouping" : {
+                  "type" : "string"
+                },
+                "taxonomyclassification" : {
+                  "type" : "string"
+                },
+                "taxonomyspecialization" : {
+                  "type" : "string"
+                },
+                "taxonomydisplayname" : {
+                  "type" : "string"
+                },
+                "organizationname" : {
+                  "type" : "string"
+                },
+                "state" : {
+                  "type" : "string"
+                },
+                "city" : {
+                  "type" : "string"
+                },
+                "zip" : {
+                  "type" : "string"
+                },
+                "primarytaxonomycode" : {
+                  "type" : "string"
+                },
+                "orgfriendlyname" : {
+                  "type" : "string"
+                },
+                "county" : {
+                  "type" : "string"
+                },
+                "ein" : {
+                  "type" : "string"
+                },
+                "latitude" : {
+                  "type" : "string"
+                },
+                "longitude" : {
+                  "type" : "string"
+                },
+                "medicare_enrollment_id" : {
+                  "type" : "string"
+                },
+                "medicare_enrollment_specialty" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "securitySchemes" : {
