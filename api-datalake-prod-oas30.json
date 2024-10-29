@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "api-datalake",
-    "version": "2024-10-29T20:05:42Z"
+    "version": "2024-10-29T20:58:29Z"
   },
   "servers": [
     {
@@ -298,7 +298,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Empty"
+                  "$ref": "#/components/schemas/rates"
                 }
               }
             }
@@ -534,10 +534,6 @@
           }
         }
       },
-      "Empty": {
-        "title": "Empty Schema",
-        "type": "object"
-      },
       "npiToParent": {
         "type": "object",
         "properties": {
@@ -553,6 +549,65 @@
                   "type": "string"
                 },
                 "tin_value": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "rates": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "npi": {
+                  "type": "string"
+                },
+                "tin_type": {
+                  "type": "string"
+                },
+                "tin_value": {
+                  "type": "string"
+                },
+                "billing_code": {
+                  "type": "string"
+                },
+                "billing_code_name": {
+                  "type": "string"
+                },
+                "billing_code_modifier": {
+                  "type": "string"
+                },
+                "billing_code_type": {
+                  "type": "string"
+                },
+                "billing_code_type_version": {
+                  "type": "string"
+                },
+                "billing_class": {
+                  "type": "string"
+                },
+                "expiration_date": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "negotiated_rate": {
+                  "type": "number"
+                },
+                "negotiated_type": {
+                  "type": "string"
+                },
+                "service_codes": {
+                  "type": "string"
+                },
+                "negotiation_arrangement": {
+                  "type": "string"
+                },
+                "additional_information": {
                   "type": "string"
                 }
               }
