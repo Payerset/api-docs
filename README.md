@@ -9,12 +9,9 @@
 
 #### Swagger Block
 
-```markdown
 {% swagger src="api-datalake-prod-oas30.json" path="/v1/metadata/npi_to_parent" method="get" %}
 api-datalake-prod-oas30.json
 {% endswagger %}
-```
-
 ---
 
 ### GET /v1/metadata/billing_code
@@ -24,12 +21,9 @@ api-datalake-prod-oas30.json
 
 #### Swagger Block
 
-```markdown
 {% swagger src="api-datalake-prod-oas30.json" path="/v1/metadata/billing_code" method="get" %}
 api-datalake-prod-oas30.json
 {% endswagger %}
-```
-
 ---
 
 ### GET /v1/metadata/npi_detail
@@ -39,12 +33,9 @@ api-datalake-prod-oas30.json
 
 #### Swagger Block
 
-```markdown
 {% swagger src="api-datalake-prod-oas30.json" path="/v1/metadata/npi_detail" method="get" %}
 api-datalake-prod-oas30.json
 {% endswagger %}
-```
-
 ---
 
 ### GET /v1/metadata/tin_to_npi
@@ -54,12 +45,9 @@ api-datalake-prod-oas30.json
 
 #### Swagger Block
 
-```markdown
 {% swagger src="api-datalake-prod-oas30.json" path="/v1/metadata/tin_to_npi" method="get" %}
 api-datalake-prod-oas30.json
 {% endswagger %}
-```
-
 ---
 
 ### GET /v1/rates
@@ -69,12 +57,9 @@ api-datalake-prod-oas30.json
 
 #### Swagger Block
 
-```markdown
 {% swagger src="api-datalake-prod-oas30.json" path="/v1/rates" method="get" %}
 api-datalake-prod-oas30.json
 {% endswagger %}
-```
-
 ---
 
 ### GET /v1/metadata/npi_to_tin
@@ -84,12 +69,9 @@ api-datalake-prod-oas30.json
 
 #### Swagger Block
 
-```markdown
 {% swagger src="api-datalake-prod-oas30.json" path="/v1/metadata/npi_to_tin" method="get" %}
 api-datalake-prod-oas30.json
 {% endswagger %}
-```
-
 ---
 
 ### GET /v1/metadata/npi_parent
@@ -99,11 +81,8 @@ api-datalake-prod-oas30.json
 
 #### Swagger Block
 
-```markdown
 {% swagger src="api-datalake-prod-oas30.json" path="/v1/metadata/npi_parent" method="get" %}
 api-datalake-prod-oas30.json
 {% endswagger %}
-```
-
 ---
 
