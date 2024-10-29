@@ -1,4 +1,4 @@
-# Rates API Documentation
+# V1 - Rates
 
 The **Payerset Rates API** provides detailed information on negotiated rates for healthcare services across various providers and billing codes. This endpoint is essential for applications needing transparency into negotiated healthcare rates, enabling users to make cost-informed decisions.
 
