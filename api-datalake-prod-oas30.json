@@ -21,6 +21,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -75,6 +83,14 @@
           {
             "name": "code_type",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string"
@@ -178,7 +194,22 @@
           },
           "passthroughBehavior": "when_no_match",
           "type": "mock"
-        }
+        },
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     },
     "/v1/metadata/npi_detail": {
@@ -188,6 +219,14 @@
           {
             "name": "npi",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string"
@@ -238,6 +277,14 @@
           {
             "name": "tin_value",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string"
@@ -308,6 +355,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -349,6 +404,14 @@
           {
             "name": "npi",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string"
@@ -398,6 +461,14 @@
           {
             "name": "npi_parent",
             "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
             "required": true,
             "schema": {
               "type": "string"
