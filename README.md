@@ -15,8 +15,9 @@ Payerset’s API is designed to facilitate streamlined access to healthcare-rela
 The API is hosted at:
 https://api.payerset.com/v1/
 
-vbnet
-Copy code
+## Postman Spec Download
+You can download the Postman collection for this API from the following link:
+https://content.payerset.com/payerset-api-postman-spec
 
 ### Authentication
 This API requires an API key for authentication. Include your API key in the `x-api-key` header with every request:
