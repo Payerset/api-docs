@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "api-datalake",
-    "version": "2024-10-30T00:05:40Z"
+    "version": "2024-10-30T00:47:44Z"
   },
   "servers": [
     {
@@ -35,6 +35,13 @@
         "responses": {
           "200": {
             "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -56,6 +63,9 @@
           "responses": {
             "default": {
               "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+              },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"npi_parent\": \"$inputRoot.Item.npi_parent.S\",\n            \"tin_value\": \"$inputRoot.Item.tin_value.S\",\n        }\n    ]\n}\n"
               }
@@ -131,7 +141,7 @@
             "default": {
               "statusCode": "200",
               "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://payerset.gitbook.io'"
+                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
               },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"billing_code\": \"$inputRoot.Item.billing_code.S\",\n            \"name\": \"$inputRoot.Item.name.S\",\n            \"code_type\": \"$inputRoot.Item.code_type.S\",\n            \"category\": \"$inputRoot.Item.category.S\",\n            \"subcategory\": \"$inputRoot.Item.subcategory.S\"\n        }\n    ]\n}\n"
@@ -176,6 +186,13 @@
         "responses": {
           "200": {
             "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -197,6 +214,9 @@
           "responses": {
             "default": {
               "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+              },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"taxonomygrouping\": \"$inputRoot.Item.taxonomygrouping.S\",\n            \"taxonomyclassification\": \"$inputRoot.Item.taxonomyclassification.S\",\n            \"taxonomyspecialization\": \"$inputRoot.Item.taxonomyspecialization.S\",\n            \"taxonomydisplayname\": \"$inputRoot.Item.taxonomydisplayname.S\",\n            \"organizationname\": \"$inputRoot.Item.organizationname.S\",\n            \"state\": \"$inputRoot.Item.state.S\",\n            \"city\": \"$inputRoot.Item.city.S\",\n            \"zip\": \"$inputRoot.Item.zip.S\",\n            \"primarytaxonomycode\": \"$inputRoot.Item.primarytaxonomycode.S\",\n            \"orgfriendlyname\": \"$inputRoot.Item.orgfriendlyname.S\",\n            \"county\": \"$inputRoot.Item.county.S\",\n            \"ein\": \"$inputRoot.Item.ein.S\",\n            \"latitude\": \"$inputRoot.Item.latitude.S\",\n            \"longitude\": \"$inputRoot.Item.longitude.S\",\n            \"medicare_enrollment_id\": \"$inputRoot.Item.medicare_enrollment_id.S\",\n            \"medicare_enrollment_specialty\": \"$inputRoot.Item.medicare_enrollment_specialty.S\"\n        }\n    ]\n}\n"
               }
@@ -235,6 +255,13 @@
         "responses": {
           "200": {
             "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -256,6 +283,9 @@
           "responses": {
             "default": {
               "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+              },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n  \"count\": \"$inputRoot.Count\",\n  \"items\": [\n    #foreach($item in $inputRoot.Items)\n      {\n        \"npi\": \"$item.npi.S\",\n        \"tin_value\": \"$item.tin_value.S\"\n      }#if($foreach.hasNext),#end\n    #end\n  ]\n}\n"
               }
@@ -310,6 +340,13 @@
         "responses": {
           "200": {
             "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -329,7 +366,10 @@
           "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:847536253128:function:api-datalake/invocations",
           "responses": {
             "default": {
-              "statusCode": "200"
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+              }
             }
           },
           "passthroughBehavior": "when_no_match",
@@ -364,6 +404,13 @@
         "responses": {
           "200": {
             "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -385,6 +432,9 @@
           "responses": {
             "default": {
               "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+              },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"tin_value\": \"$inputRoot.Item.tin_value.S\",\n        }\n    ]\n}\n"
               }
@@ -422,6 +472,13 @@
         "responses": {
           "200": {
             "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -443,6 +500,9 @@
           "responses": {
             "default": {
               "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+              },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n  \"count\": \"$inputRoot.Count\",\n  \"items\": [\n    #foreach($item in $inputRoot.Items)\n      {\n        \"npi_parent\": \"$item.npi_parent.S\",\n        \"npi\": \"$item.npi.S\"\n      }#if($foreach.hasNext),#end\n    #end\n  ]\n}\n"
               }
