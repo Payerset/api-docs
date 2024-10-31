@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "api-datalake",
-    "version" : "2024-10-31T01:14:19Z"
+    "version" : "2024-10-31T01:23:02Z"
   },
   "servers" : [ {
     "url" : "https://api.payerset.com"
@@ -102,7 +102,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/payerDetail"
                 }
               }
             }
