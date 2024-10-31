@@ -1,4 +1,4 @@
-# V1 - Metadata
+# V1 - Hospital MRF
 
 The **Payerset Hospital MRF API** allows users to retrieve detailed metadata on healthcare providers and billing codes. This endpoint is essential for applications that require accurate and up-to-date information on healthcare providers, taxonomies, billing classifications, and other key reference data used in healthcare.
 
