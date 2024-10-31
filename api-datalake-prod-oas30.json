@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "api-datalake",
-    "version": "2024-10-31T01:01:07Z"
+    "version": "2024-10-31T01:14:19Z"
   },
   "servers": [
     {
@@ -10,6 +10,82 @@
     }
   ],
   "paths": {
+    "/v1/rates/rate_query": {
+      "get": {
+        "parameters": [
+          {
+            "name": "billing_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "payer",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "npi",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:847536253128:function:api-datalake/invocations",
+          "responses": {
+            "default": {
+              "statusCode": "200"
+            }
+          },
+          "passthroughBehavior": "when_no_match",
+          "timeoutInMillis": 29000,
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
+        }
+      }
+    },
     "/v1/metadata/payers/payer_detail": {
       "get": {
         "responses": {
@@ -394,86 +470,6 @@
         }
       }
     },
-    "/v1/rates": {
-      "get": {
-        "operationId": "get-rates",
-        "parameters": [
-          {
-            "name": "billing_code",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "payer",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "npi",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authorization"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/rates"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "httpMethod": "POST",
-          "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:847536253128:function:api-datalake/invocations",
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
-              }
-            }
-          },
-          "passthroughBehavior": "when_no_match",
-          "timeoutInMillis": 29000,
-          "contentHandling": "CONVERT_TO_TEXT",
-          "type": "aws_proxy"
-        }
-      }
-    },
     "/v1/metadata/providers/npi_parent": {
       "get": {
         "responses": {
@@ -810,65 +806,6 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
-          }
-        }
-      },
-      "rates": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "npi": {
-                  "type": "string"
-                },
-                "tin_type": {
-                  "type": "string"
-                },
-                "tin_value": {
-                  "type": "string"
-                },
-                "billing_code": {
-                  "type": "string"
-                },
-                "billing_code_name": {
-                  "type": "string"
-                },
-                "billing_code_modifier": {
-                  "type": "string"
-                },
-                "billing_code_type": {
-                  "type": "string"
-                },
-                "billing_code_type_version": {
-                  "type": "string"
-                },
-                "billing_class": {
-                  "type": "string"
-                },
-                "expiration_date": {
-                  "type": "string",
-                  "format": "date"
-                },
-                "negotiated_rate": {
-                  "type": "number"
-                },
-                "negotiated_type": {
-                  "type": "string"
-                },
-                "service_codes": {
-                  "type": "string"
-                },
-                "negotiation_arrangement": {
-                  "type": "string"
-                },
-                "additional_information": {
-                  "type": "string"
-                }
-              }
             }
           }
         }
