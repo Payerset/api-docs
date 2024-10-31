@@ -37,7 +37,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -55,7 +54,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"payers_$stageVariables.version\",\n    \"Key\": {\n        \"payer_system_name\": { \"S\": \"$input.params('payer_system_name')\" }\n    }\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -97,7 +97,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Scan",
@@ -115,7 +114,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"payers_$stageVariables.version\",\n    \"ProjectionExpression\": \"payer_system_name\",\n    \"Select\": \"SPECIFIC_ATTRIBUTES\"\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -186,7 +186,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -208,7 +207,8 @@
           "cacheNamespace": "pfeiq0",
           "cacheKeyParameters": [
             "method.request.querystring.npi"
-          ]
+          ],
+          "type": "aws"
         }
       }
     },
@@ -239,7 +239,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -257,7 +256,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"npi_to_parent_$stageVariables.version\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -311,7 +311,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -330,7 +329,8 @@
           "cacheNamespace": "gkv1ba",
           "cacheKeyParameters": [
             "method.request.querystring.billing_code"
-          ]
+          ],
+          "type": "aws"
         }
       }
     },
@@ -356,7 +356,6 @@
           }
         },
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Scan",
@@ -374,7 +373,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"billing_code_$stageVariables.version\",\n    \"ProjectionExpression\": \"code_type\",\n    \"Select\": \"SPECIFIC_ATTRIBUTES\"\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -456,7 +456,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws_proxy",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:847536253128:function:api-datalake/invocations",
           "responses": {
@@ -466,7 +465,8 @@
           },
           "passthroughBehavior": "when_no_match",
           "timeoutInMillis": 29000,
-          "contentHandling": "CONVERT_TO_TEXT"
+          "contentHandling": "CONVERT_TO_TEXT",
+          "type": "aws_proxy"
         }
       }
     },
@@ -497,7 +497,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Scan",
@@ -515,7 +514,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"hospitals_$stageVariables.version\",\n    \"ProjectionExpression\": \"system_name, hospital_name, hospital_id\"\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -557,7 +557,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Query",
@@ -575,7 +574,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"tin_to_npis_$stageVariables.version\",\n    \"KeyConditionExpression\": \"tin_value = :tin_value\",\n    \"ExpressionAttributeValues\": {\n        \":tin_value\": { \"S\": \"$input.params('tin_value')\" }\n    }\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -617,7 +617,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Scan",
@@ -635,7 +634,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"hospital_payers_$stageVariables.version\",\n    \"ProjectionExpression\": \"original_payer, new_payer\"\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -677,7 +677,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Scan",
@@ -695,7 +694,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"hospitals_$stageVariables.version\",\n    \"ProjectionExpression\": \"system_name\",\n    \"Select\": \"SPECIFIC_ATTRIBUTES\"\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -737,7 +737,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Query",
@@ -755,7 +754,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"npi_parent_$stageVariables.version\",\n    \"KeyConditionExpression\": \"npi_parent = :npi_parent\",\n    \"ExpressionAttributeValues\": {\n        \":npi_parent\": { \"S\": \"$input.params('npi_parent')\" }\n    }\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
@@ -797,7 +797,6 @@
           }
         ],
         "x-amazon-apigateway-integration": {
-          "type": "aws",
           "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
@@ -815,7 +814,8 @@
           "requestTemplates": {
             "application/json": "{\n    \"TableName\": \"tin_map_$stageVariables.version\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
           },
-          "passthroughBehavior": "when_no_match"
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
         },
         "parameters": [
           {
