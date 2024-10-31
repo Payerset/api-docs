@@ -2,7 +2,7 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "api-datalake",
-    "version" : "2024-10-31T15:17:47Z"
+    "version" : "2024-10-31T18:50:46Z"
   },
   "servers" : [ {
     "url" : "https://api.payerset.com"
@@ -460,7 +460,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/hospitalList"
                 }
               }
             }
@@ -574,7 +574,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/hospitalPayerList"
                 }
               }
             }
@@ -631,7 +631,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/Empty"
+                  "$ref" : "#/components/schemas/systemList"
                 }
               }
             }
@@ -790,6 +790,123 @@
   },
   "components" : {
     "schemas" : {
+      "payerDetail" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "payer_region" : {
+                  "type" : "string"
+                },
+                "payer_category" : {
+                  "type" : "string"
+                },
+                "payer_friendly_name" : {
+                  "type" : "string"
+                },
+                "payer_system_name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "systemList" : {
+        "required" : [ "Count", "Items" ],
+        "type" : "object",
+        "properties" : {
+          "Count" : {
+            "type" : "integer"
+          },
+          "Items" : {
+            "type" : "array",
+            "items" : {
+              "required" : [ "state", "system_id", "system_name" ],
+              "type" : "object",
+              "properties" : {
+                "system_id" : {
+                  "type" : "string"
+                },
+                "system_name" : {
+                  "type" : "string"
+                },
+                "state" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "codeType" : {
+        "required" : [ "code_types" ],
+        "type" : "object",
+        "properties" : {
+          "code_types" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "payerList" : {
+        "required" : [ "payers" ],
+        "type" : "object",
+        "properties" : {
+          "payers" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        }
+      },
+      "npiToTin" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "npi" : {
+                  "type" : "string"
+                },
+                "tin_value" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "tinToNpi" : {
+        "type" : "object",
+        "properties" : {
+          "count" : {
+            "type" : "string"
+          },
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "npi" : {
+                  "type" : "string"
+                },
+                "tin_value" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
       "billingCode" : {
         "type" : "object",
         "properties" : {
@@ -882,31 +999,6 @@
           }
         }
       },
-      "payerDetail" : {
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "type" : "object",
-              "properties" : {
-                "payer_region" : {
-                  "type" : "string"
-                },
-                "payer_category" : {
-                  "type" : "string"
-                },
-                "payer_friendly_name" : {
-                  "type" : "string"
-                },
-                "payer_system_name" : {
-                  "type" : "string"
-                }
-              }
-            }
-          }
-        }
-      },
       "Empty" : {
         "title" : "Empty Schema",
         "type" : "object"
@@ -933,14 +1025,29 @@
           }
         }
       },
-      "codeType" : {
-        "required" : [ "code_types" ],
+      "hospitalList" : {
+        "required" : [ "Count", "Items" ],
         "type" : "object",
         "properties" : {
-          "code_types" : {
+          "Count" : {
+            "type" : "integer"
+          },
+          "Items" : {
             "type" : "array",
             "items" : {
-              "type" : "string"
+              "required" : [ "hospital_id", "hospital_name", "system_name" ],
+              "type" : "object",
+              "properties" : {
+                "system_name" : {
+                  "type" : "string"
+                },
+                "hospital_id" : {
+                  "type" : "string"
+                },
+                "hospital_name" : {
+                  "type" : "string"
+                }
+              }
             }
           }
         }
@@ -967,52 +1074,29 @@
           }
         }
       },
-      "payerList" : {
-        "required" : [ "payers" ],
+      "hospitalPayerList" : {
+        "required" : [ "Count", "Items" ],
         "type" : "object",
         "properties" : {
-          "payers" : {
-            "type" : "array",
-            "items" : {
-              "type" : "string"
-            }
-          }
-        }
-      },
-      "npiToTin" : {
-        "type" : "object",
-        "properties" : {
-          "items" : {
-            "type" : "array",
-            "items" : {
-              "type" : "object",
-              "properties" : {
-                "npi" : {
-                  "type" : "string"
-                },
-                "tin_value" : {
-                  "type" : "string"
-                }
-              }
-            }
-          }
-        }
-      },
-      "tinToNpi" : {
-        "type" : "object",
-        "properties" : {
-          "count" : {
-            "type" : "string"
+          "Count" : {
+            "type" : "integer"
           },
-          "items" : {
+          "Items" : {
             "type" : "array",
             "items" : {
+              "required" : [ "payer_id", "payer_name", "payer_type", "state" ],
               "type" : "object",
               "properties" : {
-                "npi" : {
+                "payer_id" : {
                   "type" : "string"
                 },
-                "tin_value" : {
+                "payer_name" : {
+                  "type" : "string"
+                },
+                "payer_type" : {
+                  "type" : "string"
+                },
+                "state" : {
                   "type" : "string"
                 }
               }
