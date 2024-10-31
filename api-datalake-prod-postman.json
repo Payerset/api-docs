@@ -2,23 +2,47 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "api-datalake",
-    "version" : "2024-10-30T12:16:04Z"
+    "version" : "2024-10-31T01:01:07Z"
   },
   "servers" : [ {
     "url" : "https://api.payerset.com"
   } ],
   "paths" : {
-    "/v1/metadata/npi_to_parent" : {
-      "get" : {
-        "operationId" : "getNpiToParent",
-        "parameters" : [ {
-          "name" : "npi",
-          "in" : "query",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
+    "/v1/rates/rate_query" : {
+      "options" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
           }
-        } ],
+        }
+      }
+    },
+    "/v1/metadata/payers/payer_detail" : {
+      "get" : {
         "responses" : {
           "200" : {
             "description" : "200 response",
@@ -32,7 +56,64 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/npiToParent"
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "options" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/payerDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/metadata/providers/tin_to_npi" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/tinToNpi"
                 }
               }
             }
@@ -74,24 +155,8 @@
         }
       }
     },
-    "/v1/metadata/billing_code" : {
+    "/v1/metadata/payers/payer_list" : {
       "get" : {
-        "operationId" : "getMetadataBillingCode",
-        "parameters" : [ {
-          "name" : "billing_code",
-          "in" : "query",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        }, {
-          "name" : "code_type",
-          "in" : "query",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
         "responses" : {
           "200" : {
             "description" : "200 response",
@@ -105,7 +170,7 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/billingCode"
+                  "$ref" : "#/components/schemas/payerList"
                 }
               }
             }
@@ -147,9 +212,8 @@
         }
       }
     },
-    "/v1/metadata/npi_detail" : {
+    "/v1/metadata/providers/npi_detail" : {
       "get" : {
-        "operationId" : "getNpiDetail",
         "parameters" : [ {
           "name" : "npi",
           "in" : "query",
@@ -158,6 +222,16 @@
             "type" : "string"
           }
         } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/npiDetail"
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "200" : {
             "description" : "200 response",
@@ -213,17 +287,8 @@
         }
       }
     },
-    "/v1/metadata/tin_to_npi" : {
+    "/v1/metadata/providers/npi_to_parent" : {
       "get" : {
-        "operationId" : "getTinToNpi",
-        "parameters" : [ {
-          "name" : "tin_value",
-          "in" : "query",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
         "responses" : {
           "200" : {
             "description" : "200 response",
@@ -237,7 +302,65 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/tinToNpi"
+                  "$ref" : "#/components/schemas/npiToParent"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "options" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/metadata/billing_codes/code_detail" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "billing_code",
+          "in" : "query",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/billingCode"
                 }
               }
             }
@@ -359,17 +482,65 @@
         }
       }
     },
-    "/v1/metadata/npi_to_tin" : {
+    "/v1/metadata/providers/npi_parent" : {
       "get" : {
-        "operationId" : "getNpiToTin",
-        "parameters" : [ {
-          "name" : "npi",
-          "in" : "query",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/npiParent"
+                }
+              }
+            }
           }
-        } ],
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "options" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "headers" : {
+              "Access-Control-Allow-Origin" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Methods" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              },
+              "Access-Control-Allow-Headers" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/metadata/providers/npi_to_tin" : {
+      "get" : {
         "responses" : {
           "200" : {
             "description" : "200 response",
@@ -425,16 +596,8 @@
         }
       }
     },
-    "/v1/metadata/npi_parent" : {
+    "/v1/metadata/billing_codes/code_types" : {
       "get" : {
-        "parameters" : [ {
-          "name" : "npi_parent",
-          "in" : "query",
-          "required" : true,
-          "schema" : {
-            "type" : "string"
-          }
-        } ],
         "responses" : {
           "200" : {
             "description" : "200 response",
@@ -448,15 +611,12 @@
             "content" : {
               "application/json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/npiParent"
+                  "$ref" : "#/components/schemas/codeType"
                 }
               }
             }
           }
-        },
-        "security" : [ {
-          "api_key" : [ ]
-        } ]
+        }
       },
       "options" : {
         "responses" : {
@@ -585,6 +745,31 @@
           }
         }
       },
+      "payerDetail" : {
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "payer_region" : {
+                  "type" : "string"
+                },
+                "payer_category" : {
+                  "type" : "string"
+                },
+                "payer_friendly_name" : {
+                  "type" : "string"
+                },
+                "payer_system_name" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
       "Empty" : {
         "title" : "Empty Schema",
         "type" : "object"
@@ -607,6 +792,18 @@
                   "type" : "string"
                 }
               }
+            }
+          }
+        }
+      },
+      "codeType" : {
+        "required" : [ "code_types" ],
+        "type" : "object",
+        "properties" : {
+          "code_types" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           }
         }
@@ -688,6 +885,18 @@
                   "type" : "string"
                 }
               }
+            }
+          }
+        }
+      },
+      "payerList" : {
+        "required" : [ "payers" ],
+        "type" : "object",
+        "properties" : {
+          "payers" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           }
         }

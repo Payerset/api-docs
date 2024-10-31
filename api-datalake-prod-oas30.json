@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "api-datalake",
-    "version": "2024-10-30T12:16:04Z"
+    "version": "2024-10-31T01:01:07Z"
   },
   "servers": [
     {
@@ -10,28 +10,8 @@
     }
   ],
   "paths": {
-    "/v1/metadata/npi_to_parent": {
+    "/v1/metadata/payers/payer_detail": {
       "get": {
-        "operationId": "getNpiToParent",
-        "parameters": [
-          {
-            "name": "npi",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authorization"
-          }
-        ],
         "responses": {
           "200": {
             "description": "200 response",
@@ -45,7 +25,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/npiToParent"
+                  "$ref": "#/components/schemas/Empty"
                 }
               }
             }
@@ -64,115 +44,20 @@
             "default": {
               "statusCode": "200",
               "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               },
               "responseTemplates": {
-                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"npi_parent\": \"$inputRoot.Item.npi_parent.S\",\n            \"tin_value\": \"$inputRoot.Item.tin_value.S\",\n        }\n    ]\n}\n"
+                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"payer_region\": \"$inputRoot.Item.payer_region.S\",\n            \"payer_category\": \"$inputRoot.Item.payer_category.S\",\n            \"payer_friendly_name\": \"$inputRoot.Item.payer_friendly_name.S\",\n            \"payer_system_name\": \"$inputRoot.Item.payer_system_name.S\"\n        }\n    ]\n}\n"
               }
             }
           },
           "requestTemplates": {
-            "application/json": "{\n    \"TableName\": \"npi_to_parent_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
+            "application/json": "{\n    \"TableName\": \"payers_202411\",\n    \"Key\": {\n        \"payer_system_name\": { \"S\": \"$input.params('payer_system_name')\" }\n    }\n}\n"
           },
           "passthroughBehavior": "when_no_match",
           "type": "aws"
-        }
-      }
-    },
-    "/v1/metadata/billing_code": {
-      "get": {
-        "operationId": "getMetadataBillingCode",
-        "parameters": [
-          {
-            "name": "billing_code",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "code_type",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authorization"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/billingCode"
-                }
-              }
-            }
-          }
         },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
-          "httpMethod": "POST",
-          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
-              },
-              "responseTemplates": {
-                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"billing_code\": \"$inputRoot.Item.billing_code.S\",\n            \"name\": \"$inputRoot.Item.name.S\",\n            \"code_type\": \"$inputRoot.Item.code_type.S\",\n            \"category\": \"$inputRoot.Item.category.S\",\n            \"subcategory\": \"$inputRoot.Item.subcategory.S\"\n        }\n    ]\n}\n"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\n    \"TableName\": \"billing_code_202411\",\n    \"Key\": {\n        \"billing_code\": { \"S\": \"$input.params('billing_code')\" },\n        \"code_type\": { \"S\": \"$input.params('code_type')\" }\n    }\n}\n"
-          },
-          "passthroughBehavior": "when_no_templates",
-          "cacheNamespace": "5hqbjo",
-          "cacheKeyParameters": [
-            "method.request.querystring.billing_code",
-            "method.request.querystring.code_type"
-          ],
-          "type": "aws"
-        }
-      }
-    },
-    "/v1/metadata/npi_detail": {
-      "get": {
-        "operationId": "getNpiDetail",
         "parameters": [
-          {
-            "name": "npi",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "x-api-key",
             "in": "header",
@@ -182,76 +67,11 @@
             },
             "description": "API key for authorization"
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/npiDetail"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
-          "httpMethod": "POST",
-          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
-              },
-              "responseTemplates": {
-                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"taxonomygrouping\": \"$inputRoot.Item.taxonomygrouping.S\",\n            \"taxonomyclassification\": \"$inputRoot.Item.taxonomyclassification.S\",\n            \"taxonomyspecialization\": \"$inputRoot.Item.taxonomyspecialization.S\",\n            \"taxonomydisplayname\": \"$inputRoot.Item.taxonomydisplayname.S\",\n            \"organizationname\": \"$inputRoot.Item.organizationname.S\",\n            \"state\": \"$inputRoot.Item.state.S\",\n            \"city\": \"$inputRoot.Item.city.S\",\n            \"zip\": \"$inputRoot.Item.zip.S\",\n            \"primarytaxonomycode\": \"$inputRoot.Item.primarytaxonomycode.S\",\n            \"orgfriendlyname\": \"$inputRoot.Item.orgfriendlyname.S\",\n            \"county\": \"$inputRoot.Item.county.S\",\n            \"ein\": \"$inputRoot.Item.ein.S\",\n            \"latitude\": \"$inputRoot.Item.latitude.S\",\n            \"longitude\": \"$inputRoot.Item.longitude.S\",\n            \"medicare_enrollment_id\": \"$inputRoot.Item.medicare_enrollment_id.S\",\n            \"medicare_enrollment_specialty\": \"$inputRoot.Item.medicare_enrollment_specialty.S\"\n        }\n    ]\n}\n"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\n    \"TableName\": \"npi_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
-          },
-          "passthroughBehavior": "when_no_match",
-          "type": "aws"
-        }
+        ]
       }
     },
-    "/v1/metadata/tin_to_npi": {
+    "/v1/metadata/providers/tin_to_npi": {
       "get": {
-        "operationId": "getTinToNpi",
-        "parameters": [
-          {
-            "name": "tin_value",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authorization"
-          }
-        ],
         "responses": {
           "200": {
             "description": "200 response",
@@ -284,7 +104,7 @@
             "default": {
               "statusCode": "200",
               "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n  \"count\": \"$inputRoot.Count\",\n  \"items\": [\n    #foreach($item in $inputRoot.Items)\n      {\n        \"npi\": \"$item.npi.S\",\n        \"tin_value\": \"$item.tin_value.S\"\n      }#if($foreach.hasNext),#end\n    #end\n  ]\n}\n"
@@ -295,6 +115,281 @@
             "application/json": "{\n    \"TableName\": \"tin_to_npis_202411\",\n    \"KeyConditionExpression\": \"tin_value = :tin_value\",\n    \"ExpressionAttributeValues\": {\n        \":tin_value\": { \"S\": \"$input.params('tin_value')\" }\n    }\n}\n"
           },
           "passthroughBehavior": "when_no_match",
+          "type": "aws"
+        },
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ]
+      }
+    },
+    "/v1/metadata/payers/payer_list": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/payerList"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Scan",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"payers\": [\n        #foreach($item in $inputRoot.Items)\n            \"$item.payer_system_name.S\"#if($foreach.hasNext()), #end\n        #end\n    ]\n}\n"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"TableName\": \"payers_202411\",\n    \"ProjectionExpression\": \"payer_system_name\",\n    \"Select\": \"SPECIFIC_ATTRIBUTES\"\n}\n"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
+        },
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ]
+      }
+    },
+    "/v1/metadata/providers/npi_detail": {
+      "get": {
+        "parameters": [
+          {
+            "name": "npi",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/npiDetail"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/npiDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"taxonomygrouping\": \"$inputRoot.Item.taxonomygrouping.S\",\n            \"taxonomyclassification\": \"$inputRoot.Item.taxonomyclassification.S\",\n            \"taxonomyspecialization\": \"$inputRoot.Item.taxonomyspecialization.S\",\n            \"taxonomydisplayname\": \"$inputRoot.Item.taxonomydisplayname.S\",\n            \"organizationname\": \"$inputRoot.Item.organizationname.S\",\n            \"state\": \"$inputRoot.Item.state.S\",\n            \"city\": \"$inputRoot.Item.city.S\",\n            \"zip\": \"$inputRoot.Item.zip.S\",\n            \"primarytaxonomycode\": \"$inputRoot.Item.primarytaxonomycode.S\",\n            \"orgfriendlyname\": \"$inputRoot.Item.orgfriendlyname.S\",\n            \"county\": \"$inputRoot.Item.county.S\",\n            \"ein\": \"$inputRoot.Item.ein.S\",\n            \"latitude\": \"$inputRoot.Item.latitude.S\",\n            \"longitude\": \"$inputRoot.Item.longitude.S\",\n            \"medicare_enrollment_id\": \"$inputRoot.Item.medicare_enrollment_id.S\",\n            \"medicare_enrollment_specialty\": \"$inputRoot.Item.medicare_enrollment_specialty.S\"\n        }\n    ]\n}\n"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"TableName\": \"npi_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
+          },
+          "passthroughBehavior": "when_no_match",
+          "cacheNamespace": "pfeiq0",
+          "cacheKeyParameters": [
+            "method.request.querystring.npi"
+          ],
+          "type": "aws"
+        }
+      }
+    },
+    "/v1/metadata/providers/npi_to_parent": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/npiToParent"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"npi_parent\": \"$inputRoot.Item.npi_parent.S\",\n            \"tin_value\": \"$inputRoot.Item.tin_value.S\",\n        }\n    ]\n}\n"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"TableName\": \"npi_to_parent_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
+        },
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ]
+      }
+    },
+    "/v1/metadata/billing_codes/code_detail": {
+      "get": {
+        "parameters": [
+          {
+            "name": "billing_code",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/billingCode"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseTemplates": {
+                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"billing_code\": \"$inputRoot.Item.billing_code.S\",\n            \"name\": \"$inputRoot.Item.name.S\",\n            \"code_type\": \"$inputRoot.Item.code_type.S\",\n            \"category\": \"$inputRoot.Item.category.S\",\n            \"subcategory\": \"$inputRoot.Item.subcategory.S\"\n        }\n    ]\n}\n"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"TableName\": \"billing_code_202411\",\n    \"Key\": {\n        \"billing_code\": { \"S\": \"$input.params('billing_code')\" },\n        \"code_type\": { \"S\": \"$input.params('code_type')\" }\n    }\n}\n"
+          },
+          "passthroughBehavior": "when_no_match",
+          "cacheNamespace": "gkv1ba",
+          "cacheKeyParameters": [
+            "method.request.querystring.billing_code"
+          ],
           "type": "aws"
         }
       }
@@ -379,96 +474,8 @@
         }
       }
     },
-    "/v1/metadata/npi_to_tin": {
+    "/v1/metadata/providers/npi_parent": {
       "get": {
-        "operationId": "getNpiToTin",
-        "parameters": [
-          {
-            "name": "npi",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authorization"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/npiToTin"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "api_key": []
-          }
-        ],
-        "x-amazon-apigateway-integration": {
-          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
-          "httpMethod": "POST",
-          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
-          "responses": {
-            "default": {
-              "statusCode": "200",
-              "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
-              },
-              "responseTemplates": {
-                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"tin_value\": \"$inputRoot.Item.tin_value.S\",\n        }\n    ]\n}\n"
-              }
-            }
-          },
-          "requestTemplates": {
-            "application/json": "{\n    \"TableName\": \"tin_map_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
-          },
-          "passthroughBehavior": "when_no_match",
-          "type": "aws"
-        }
-      }
-    },
-    "/v1/metadata/npi_parent": {
-      "get": {
-        "parameters": [
-          {
-            "name": "npi_parent",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "x-api-key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "API key for authorization"
-          }
-        ],
         "responses": {
           "200": {
             "description": "200 response",
@@ -501,7 +508,7 @@
             "default": {
               "statusCode": "200",
               "responseParameters": {
-                "method.response.header.Access-Control-Allow-Origin": "'https://api-reference.payerset.com'"
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
               },
               "responseTemplates": {
                 "application/json": "#set($inputRoot = $input.path('$'))\n{\n  \"count\": \"$inputRoot.Count\",\n  \"items\": [\n    #foreach($item in $inputRoot.Items)\n      {\n        \"npi_parent\": \"$item.npi_parent.S\",\n        \"npi\": \"$item.npi.S\"\n      }#if($foreach.hasNext),#end\n    #end\n  ]\n}\n"
@@ -513,7 +520,138 @@
           },
           "passthroughBehavior": "when_no_match",
           "type": "aws"
-        }
+        },
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ]
+      }
+    },
+    "/v1/metadata/providers/npi_to_tin": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/npiToTin"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ],
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/GetItem",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($inputRoot = $input.path('$'))\n{\n    \"items\": [\n        {\n            \"npi\": \"$inputRoot.Item.npi.S\",\n            \"tin_value\": \"$inputRoot.Item.tin_value.S\",\n        }\n    ]\n}\n"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"TableName\": \"tin_map_202411\",\n    \"Key\": {\n        \"npi\": { \"S\": \"$input.params('npi')\" }\n    }\n}\n"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
+        },
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ]
+      }
+    },
+    "/v1/metadata/billing_codes/code_types": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/codeType"
+                }
+              }
+            }
+          }
+        },
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::847536253128:role/dynamoDbRole",
+          "httpMethod": "POST",
+          "uri": "arn:aws:apigateway:us-east-1:dynamodb:action/Scan",
+          "responses": {
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'"
+              },
+              "responseTemplates": {
+                "application/json": "#set($uniqueCodeTypes = {})\n#foreach($item in $input.path('$.Items'))\n    #set($codeType = $item.code_type.S)\n    #if(!$uniqueCodeTypes.containsKey($codeType))\n        $util.qr($uniqueCodeTypes.put($codeType, $codeType))\n    #end\n#end\n\n{\n    \"code_types\": [\n        #foreach($type in $uniqueCodeTypes.keySet())\n            \"$type\"#if($foreach.hasNext()),#end\n        #end\n    ]\n}\n"
+              }
+            }
+          },
+          "requestTemplates": {
+            "application/json": "{\n    \"TableName\": \"billing_code_202411\",\n    \"ProjectionExpression\": \"code_type\",\n    \"Select\": \"SPECIFIC_ATTRIBUTES\"\n}\n"
+          },
+          "passthroughBehavior": "when_no_match",
+          "type": "aws"
+        },
+        "parameters": [
+          {
+            "name": "x-api-key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "API key for authorization"
+          }
+        ],
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
       }
     }
   },
@@ -611,6 +749,31 @@
           }
         }
       },
+      "payerDetail": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "payer_region": {
+                  "type": "string"
+                },
+                "payer_category": {
+                  "type": "string"
+                },
+                "payer_friendly_name": {
+                  "type": "string"
+                },
+                "payer_system_name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
       "Empty": {
         "title": "Empty Schema",
         "type": "object"
@@ -633,6 +796,20 @@
                   "type": "string"
                 }
               }
+            }
+          }
+        }
+      },
+      "codeType": {
+        "required": [
+          "code_types"
+        ],
+        "type": "object",
+        "properties": {
+          "code_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }
@@ -714,6 +891,20 @@
                   "type": "string"
                 }
               }
+            }
+          }
+        }
+      },
+      "payerList": {
+        "required": [
+          "payers"
+        ],
+        "type": "object",
+        "properties": {
+          "payers": {
+            "type": "array",
+            "items": {
+              "type": "string"
             }
           }
         }
